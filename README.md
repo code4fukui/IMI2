@@ -1,78 +1,82 @@
-# IMI2 (GIF)
+# IMI2 (Government Interoperability Framework - GIF)
 
-- [政府相互運用性フレームワーク（GIF - Government Interoperability Framework）](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework/)
-- プロジェクト名 IMI2
-- ルール、実践ガイドブック、文字情報基盤、共通語彙基盤、行政基本データ連携モデル、行政サービスデータ連携モデル、推奨データセットを集約
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
 
-## 全体説明
+This repository contains the documentation for Japan's **Government Interoperability Framework (GIF)**, under the project name **IMI2**. GIF is a set of rules, data models, and practical guidebooks designed to enhance data interoperability across government services and with the private sector.
 
-- [410_GIF_全体編.md](410_GIF_全体編.md)
-- [411_GIF説明資料.pdf](411_GIF説明資料.pdf) ([pptx](411_GIF説明資料.pptx))
+- **Official Policy Page:** [Government Interoperability Framework (GIF)](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework/)
 
-## コア語彙
+## Core Concepts
 
-- [420_コア語彙 (共通語彙基盤).md](420_コア語彙%20(共通語彙基盤).md)
+The framework is built on a layered architecture to ensure that data is not only standardized but also practical for implementation. It provides a set of reference models that can be adapted for specific needs while maintaining a common foundation for interoperability.
 
-## コアデータモデル
+### Core Data Models
+The foundation of GIF is a set of standardized data models for common entities, enabling seamless data exchange and reducing design costs. This integrates existing standards into a unified framework.
 
-- [430_コアデータモデル全体概要.md](430_コアデータモデル全体概要.md)
-- [430-1_DMD_クラス図.pdf](430-1_DMD_クラス図.pdf)
-- 431_コアデータモデル解説書_個人
-- 432_コアデータモデル解説書_連絡先
-- [433_コアデータモデル解説書_住所.md](433_コアデータモデル解説書_住所.md)
-- 434_コアデータモデル解説書_法人
-- 435_コアデータモデル解説書_施設
-- 436_コアデータモデル解説書_アクセシビリティ
-- 437_コアデータモデル解説書_子育て支援情報
-- [438_コアデータモデル_DMD.pdf](438_コアデータモデル_DMD.pdf) ([xlsx](438_コアデータモデル_DMD.xlsx))
+- **Purpose**: To standardize fundamental data structures for entities like individuals, corporations, addresses, and facilities.
+- **Key Components**:
+    - **Core Data Parts**: Uniform formats for common attributes like addresses, dates, and phone numbers to ensure consistent data handling.
+    - **Structured Data Types**: Pre-defined structures for complex data like IDs, codes, and roles to maintain consistency.
+        - **ID Information Type**: Combines an ID value with its classification (e.g., personal number, employee ID).
+        - **Code Information Type**: Links a code to its meaning (e.g., gender code "1" → "Male").
+        - **Role Participation Type**: Defines relationships between entities (e.g., a "Guardian" role linked to a person).
+- **Primary Documents**:
+    - [Core Data Model Overview](430_Core_Data_Model_Overview.md)
+    - [Class Diagram](430-1_DMD_Class_Diagram.pdf)
+    - [Data Model Description (DMD) Spreadsheet](438_Core_Data_Model_DMD.xlsx)
 
-## コアデータパーツ
+### Address Management
+A standardized approach to handling address data is critical for interoperability. GIF recommends code-based management for accuracy and consistency.
 
-- 441_コアデータパーツ_日付時刻
-- [442_コアデータパーツ_住所（アドレス）.md](442_コアデータパーツ_住所（アドレス）.md)
-- 443_コアデータパーツ_郵便番号
-- 444_コアデータパーツ_地理情報
-- 445_コアデータパーツ_電話番号
+- **Recommended Format (Code-Based)**: Use the **national local public entity code** and **town/area ID** to represent addresses programmatically, preventing variations in text representation.
+    - *Example*: `131016` (Chiyoda Ward) + `0002002` (Kasumigaseki) + `1-6` → "東京都千代田区霞が関2-1-6".
+- **Textual Format**: A 4-field structure (Prefecture, City/District, Town, Block/Number) is recommended for textual data.
+- **English Format**: Follows Hepburn romanization rules.
+    - *Example*: `2-1-2 Kasumigaseki, Chiyoda-ku, Tokyo 100-8926, Japan`.
+- **Primary Document**: [Core Data Part - Address](442_Core_Data_Part_Address.md)
 
-## 実践データモデル 行政
+### Code (Classification System) Implementation
+GIF provides guidelines for designing and using codes to ensure data is classified consistently across different systems.
 
-- 451-1_実装データモデル_申請
-- 451-1-1_申請（個人）データモデル_クラス図
-- 451-1-2_申請（法人）データモデル_クラス図
-- 451-1-3_申請（士業法人）データモデル_クラス図
-- 451-2_実装データモデル_証明・通知
-- 451-2-1_証明・通知データモデル_クラス図
-- 451-3_実装データモデル_事例
-- 451-3-1_事例データモデル_クラス図
-- 451-4_実装データモデル_行政サービス・制度
-- 451-4-1_制度データモデル_クラス図
-- 451-5_実装データモデル_イベント
-- 451-5-1_イベントデータモデル_クラス図
-- 451-6_実装データモデル_報告書
-- 451-6-1_報告書データモデル_クラス図
-- 451-7_実装データモデル_行政サービス拠点・支援機関等
-- 451-7-1_行政サービス拠点・支援機関等データモデル_クラス図
-- 451-8_調達
-- [451-8-1_別表各種調達標準の比較.pdf](451-8-1_別表各種調達標準の比較.pdf) ([xlsx](451-8-1_別表各種調達標準の比較.xlsx))
+- **Code Types**:
+    - **Identification Codes**: Unique identifiers (e.g., My Number, Corporate Number).
+    - **Classification Codes**: Categorical codes (e.g., ISO 5218 for gender, Japan Standard Industrial Classification).
+- **Design Principles**:
+    - **Prefer Existing Standards**: Use ISO and JIS codes where applicable.
+    - **Meaningful vs. Meaningless Codes**: Choose between codes that embed semantic information (e.g., `JP-CAS-2017-003`) and flexible, randomized codes (e.g., UUIDs).
+    - **Error Prevention**: Use check digits for critical codes to prevent input errors.
+- **Primary Document**: [Practical Guidebook for Code Implementation](463-1_Practical_Guidebook_for_Code_(Classification_System)_Implementation.md)
 
-## 実践データモデル 地域サービス
+---
 
-- 452-1_地域サービス・データモデル・ガイドブックβ版 ([docx](452-1_地域サービス・データモデル・ガイドブックβ版.docx))
-- 452-2_地域サービス・データモデル・ガイドブック（付録） ([docx](452-2_地域サービス・データモデル・ガイドブック（付録）.docx))
+## All Documents
 
-## 実践ガイドブック
+### Overview
+- [410_GIF_Whole.md](410_GIF_Whole.md)
+- [411_GIF_Explanation.pdf](411_GIF_Explanation.pdf) ([pptx](411_GIF_Explanation.pptx))
 
-- 461_文字環境導入実践ガイドブック
-- 462_マスターデータ等基本データ導入実践ガイドブック
-- [463-1_コード（分類体系）導入実践ガイドブック.md](463-1_コード（分類体系）導入実践ガイドブック.md)
-- 464-1_API導入実践ガイドブック
-- 465-1_データマネジメント実践ガイドブック（導入編）
-- 465-2_データマネジメント実践ガイドブック（運用編）
-- 465-3_オープンデータの推進状況に係る調査票テンプレート例
-- 465-4_データ管理の高度化に係る調査票テンプレート例
-- 465-5_データ標準の活用に係る調査票テンプレート例
-- 465-6_データの品質確保に係る調査票テンプレート例
-- 466_データ人材管理実践ガイドブック
-- 467_データ環境整備のためのアーキテクチャ管理導入実践ガイドブック
-- 468_データ品質管理ガイドブック
-- 469_メタデータ導入実践ガイドブック
+### Core Vocabulary
+- [420_Core_Vocabulary.md](420_Core_Vocabulary.md)
+
+### Core Data Model
+- [430_Core_Data_Model_Overview.md](430_Core_Data_Model_Overview.md)
+- [430-1_DMD_Class_Diagram.pdf](430-1_DMD_Class_Diagram.pdf)
+- [431_Core_Data_Model_Description_Individual.md](431_Core_Data_Model_Description_Individual.md)
+- [432_Core_Data_Model_Description_Contact.md](432_Core_Data_Model_Description_Contact.md)
+- [433_Core_Data_Model_Description_Address.md](433_Core_Data_Model_Description_Address.md)
+- [434_Core_Data_Model_Description_Corporation.md](434_Core_Data_Model_Description_Corporation.md)
+- [435_Core_Data_Model_Description_Facility.md](435_Core_Data_Model_Description_Facility.md)
+- [436_Core_Data_Model_Description_Accessibility.md](436_Core_Data_Model_Description_Accessibility.md)
+- [437_Core_Data_Model_Description_Childcare_Support_Information.md](437_Core_Data_Model_Description_Childcare_Support_Information.md)
+- [438_Core_Data_Model_DMD.pdf](438_Core_Data_Model_DMD.pdf) ([xlsx](438_Core_Data_Model_DMD.xlsx))
+
+### Core Data Parts
+- [441_Core_Data_Part_Date_Time.md](441_Core_Data_Part_Date_Time.md)
+- [442_Core_Data_Part_Address.md](442_Core_Data_Part_Address.md)
+- [443_Core_Data_Part_Postal_Code.md](443_Core_Data_Part_Postal_Code.md)
+- [444_Core_Data_Part_Geo_Information.md](444_Core_Data_Part_Geo_Information.md)
+- [445_Core_Data_Part_Phone_Number.md](445_Core_Data_Part_Phone_Number.md)
+
+### Implementation Data Model - Government
+- [451-1_Implementation_Data_Model_Application.md](451-1_Implementation_Data_Model_Application.md)
+- [451-1-1_Application_(Individual)_Data_Model
